@@ -1,22 +1,15 @@
-const getTrending = async (page: number): Promise<ITrendingResponse | null> => {
-  // const url: string = `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=${process.env.API_KEY}`;
-  // const options: RequestInit = {
-  //   method: "GET",
-  //   headers: {
-  //     accept: "application/json",
-  //   },
-  // };
+const getPopularMedia = async (page: number): Promise<IPopularMediaResponse | null> => {
+  //   const url: string = `https://api.themoviedb.org/3/trending/all/week?language=en-US&api_key=${process.env.API_KEY}`;
+  //   const urlObject = {
+  //     href: "https://api.themoviedb.org/3/trending/all/week",
+  //     query: { language: "en-US", api_key: process.env.API_KEY },
+  //   };
 
-  // const resp = await fetch(url, options);
-  // const body = await resp.json();
-  // const trending: ITrending[] = body?.results ?? [];
-  // return trending;
-
-  return await Promise.resolve<ITrendingResponse | null>(mockedTrending);
+  return await Promise.resolve<IPopularMediaResponse | null>(mockedPopularMovies);
 };
 
-export { getTrending };
-const mockedTrending: ITrendingResponse = {
+export { getPopularMedia };
+const mockedPopularMovies: IPopularMediaResponse = {
   page: 1,
   results: [
     {
@@ -35,7 +28,7 @@ const mockedTrending: ITrendingResponse = {
       release_date: "2024-06-11",
       video: false,
       vote_average: 7.684,
-      vote_count: 3226,
+      vote_count: 3227,
     },
     {
       backdrop_path: "/NNC08YmJFFlLi1prBkK8quk3dp.jpg",
@@ -56,24 +49,6 @@ const mockedTrending: ITrendingResponse = {
       origin_country: ["US"],
     },
     {
-      backdrop_path: "/7aPrv2HFssWcOtpig5G3HEVk3uS.jpg",
-      id: 718821,
-      title: "Twisters",
-      original_title: "Twisters",
-      overview:
-        "As storm season intensifies, the paths of former storm chaser Kate Carter and reckless social-media superstar Tyler Owens collide when terrifying phenomena never seen before are unleashed. The pair and their competing teams find themselves squarely in the paths of multiple storm systems converging over central Oklahoma in the fight of their lives.",
-      poster_path: "/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 12, 18],
-      popularity: 1891.741,
-      release_date: "2024-07-10",
-      video: false,
-      vote_average: 7.021,
-      vote_count: 1201,
-    },
-    {
       backdrop_path: "/p5kpFS0P3lIwzwzHBOULQovNWyj.jpg",
       id: 1032823,
       title: "Trap",
@@ -88,7 +63,25 @@ const mockedTrending: ITrendingResponse = {
       release_date: "2024-07-31",
       video: false,
       vote_average: 6.5,
-      vote_count: 615,
+      vote_count: 622,
+    },
+    {
+      backdrop_path: "/7aPrv2HFssWcOtpig5G3HEVk3uS.jpg",
+      id: 718821,
+      title: "Twisters",
+      original_title: "Twisters",
+      overview:
+        "As storm season intensifies, the paths of former storm chaser Kate Carter and reckless social-media superstar Tyler Owens collide when terrifying phenomena never seen before are unleashed. The pair and their competing teams find themselves squarely in the paths of multiple storm systems converging over central Oklahoma in the fight of their lives.",
+      poster_path: "/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg",
+      media_type: "movie",
+      adult: false,
+      original_language: "en",
+      genre_ids: [28, 12, 18],
+      popularity: 1891.741,
+      release_date: "2024-07-10",
+      video: false,
+      vote_average: 7,
+      vote_count: 1203,
     },
     {
       backdrop_path: "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
@@ -97,7 +90,7 @@ const mockedTrending: ITrendingResponse = {
       original_title: "Alien: Romulus",
       overview:
         "While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.",
-      poster_path: "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
+      poster_path: "/p9QhpqGrRWK1iksl1ZO1rKkrzFb.jpg",
       media_type: "movie",
       adult: false,
       original_language: "en",
@@ -105,8 +98,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 1189.05,
       release_date: "2024-08-13",
       video: false,
-      vote_average: 7.148,
-      vote_count: 789,
+      vote_average: 7.1,
+      vote_count: 794,
     },
     {
       backdrop_path: "/bizhlTVjifYQUu4Xrdt7m3TYr7d.jpg",
@@ -123,8 +116,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 1515.397,
       release_date: "2024-07-10",
       video: false,
-      vote_average: 6.63,
-      vote_count: 606,
+      vote_average: 6.635,
+      vote_count: 609,
     },
     {
       backdrop_path: "/mKOBdgaEFguADkJhfFslY7TYxIh.jpg",
@@ -141,8 +134,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 380.925,
       release_date: "2024-08-07",
       video: false,
-      vote_average: 5.638,
-      vote_count: 258,
+      vote_average: 5.6,
+      vote_count: 260,
     },
     {
       backdrop_path: "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
@@ -159,8 +152,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 5116.296,
       release_date: "2024-07-24",
       video: false,
-      vote_average: 7.768,
-      vote_count: 2560,
+      vote_average: 7.8,
+      vote_count: 2562,
     },
     {
       backdrop_path: "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
@@ -177,8 +170,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 2247.902,
       release_date: "2024-06-20",
       video: false,
-      vote_average: 7.264,
-      vote_count: 1367,
+      vote_average: 7.261,
+      vote_count: 1369,
     },
     {
       backdrop_path: "/wNAhuOZ3Zf84jCIlrcI6JhgmY5q.jpg",
@@ -195,8 +188,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 706.332,
       release_date: "2024-05-22",
       video: false,
-      vote_average: 7.586,
-      vote_count: 2918,
+      vote_average: 7.587,
+      vote_count: 2920,
     },
     {
       backdrop_path: "/AmR3JG1VQVxU8TfAvljUhfSFUOx.jpg",
@@ -213,8 +206,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 420.599,
       release_date: "1979-05-25",
       video: false,
-      vote_average: 8.2,
-      vote_count: 14407,
+      vote_average: 8.153,
+      vote_count: 14408,
     },
     {
       backdrop_path: "/zB0g0VaRKHfRrvBT4ouHK5W967W.jpg",
@@ -231,8 +224,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 364.693,
       release_date: "2024-07-10",
       video: false,
-      vote_average: 6.952,
-      vote_count: 395,
+      vote_average: 6.949,
+      vote_count: 396,
     },
     {
       backdrop_path: "/9Piw6Zju39bn3enIDLZzPfjMTBR.jpg",
@@ -248,8 +241,8 @@ const mockedTrending: ITrendingResponse = {
       genre_ids: [35, 10765, 18],
       popularity: 262.168,
       first_air_date: "2024-08-29",
-      vote_average: 7.736,
-      vote_count: 36,
+      vote_average: 7.513,
+      vote_count: 40,
       origin_country: ["GB"],
     },
     {
@@ -266,9 +259,27 @@ const mockedTrending: ITrendingResponse = {
       genre_ids: [10759, 35, 16],
       popularity: 205.714,
       first_air_date: "1999-10-20",
-      vote_average: 8.7,
-      vote_count: 4587,
+      vote_average: 8.72,
+      vote_count: 4588,
       origin_country: ["JP"],
+    },
+    {
+      backdrop_path: "/fmFPP1pXrV9gK4KRNk4KijT0QSx.jpg",
+      id: 239287,
+      name: "Terminator Zero",
+      original_name: "ターミネーター 0",
+      overview:
+        "A warrior from a post-apocalyptic future travels to 1997 to protect an AI scientist being hunted by an unfeeling — and indestructible — cyborg.",
+      poster_path: "/v4sbn6IsJGAIZNHjdB4CprvS7zo.jpg",
+      media_type: "tv",
+      adult: false,
+      original_language: "ja",
+      genre_ids: [16, 10765, 10759],
+      popularity: 535.212,
+      first_air_date: "2024-08-29",
+      vote_average: 7.7,
+      vote_count: 43,
+      origin_country: ["US", "JP"],
     },
     {
       backdrop_path: "/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg",
@@ -289,24 +300,6 @@ const mockedTrending: ITrendingResponse = {
       origin_country: ["US"],
     },
     {
-      backdrop_path: "/fmFPP1pXrV9gK4KRNk4KijT0QSx.jpg",
-      id: 239287,
-      name: "Terminator Zero",
-      original_name: "ターミネーター 0",
-      overview:
-        "A warrior from a post-apocalyptic future travels to 1997 to protect an AI scientist being hunted by an unfeeling — and indestructible — cyborg.",
-      poster_path: "/v4sbn6IsJGAIZNHjdB4CprvS7zo.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "ja",
-      genre_ids: [16, 10765, 10759],
-      popularity: 535.212,
-      first_air_date: "2024-08-29",
-      vote_average: 7.7,
-      vote_count: 42,
-      origin_country: ["US", "JP"],
-    },
-    {
       backdrop_path: "/fypydCipcWDKDTTCoPucBsdGYXW.jpg",
       id: 653346,
       title: "Kingdom of the Planet of the Apes",
@@ -321,8 +314,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 793.627,
       release_date: "2024-05-08",
       video: false,
-      vote_average: 7.137,
-      vote_count: 2723,
+      vote_average: 7.138,
+      vote_count: 2724,
     },
     {
       backdrop_path: "/pzFbYJfqGKlGxOsDIIsUi6YxVQ.jpg",
@@ -339,8 +332,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 1230.354,
       release_date: "2024-08-13",
       video: false,
-      vote_average: 6.438,
-      vote_count: 372,
+      vote_average: 6.429,
+      vote_count: 375,
     },
     {
       backdrop_path: "/9BQqngPfwpeAfK7c2H3cwIFWIVR.jpg",
@@ -357,8 +350,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 1312.259,
       release_date: "2024-08-07",
       video: false,
-      vote_average: 6.835,
-      vote_count: 230,
+      vote_average: 6.836,
+      vote_count: 232,
     },
     {
       backdrop_path: "/4ft6TR9wA6bra0RLL6G7JFDQ5t1.jpg",
@@ -375,8 +368,8 @@ const mockedTrending: ITrendingResponse = {
       popularity: 1441.314,
       release_date: "2024-08-15",
       video: false,
-      vote_average: 6.269,
-      vote_count: 507,
+      vote_average: 6.266,
+      vote_count: 509,
     },
   ],
   total_pages: 1000,

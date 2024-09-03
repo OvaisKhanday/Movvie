@@ -3,6 +3,6 @@ import trendingController from "../controllers/Trending.controller.js";
 
 const router = express.Router();
 
-router.get("/", trendingController.get);
+router.get("/all", trendingController.get);
 
-export default router;
+export { router as trendingRouter };
