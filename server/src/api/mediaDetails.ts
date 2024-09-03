@@ -1,5 +1,3 @@
-import { mock } from "node:test";
-
 async function fetchMovieDetails(id: number): Promise<IMovieDetails | null> {
   // 'https://api.themoviedb.org/3/movie/1022789?language=en-US'
   const casts = await fetchMovieCasts(id);
