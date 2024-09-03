@@ -3,7 +3,7 @@ import { appRouter } from "./App.router.js";
 import { trendingRouter } from "./Trending.router.js";
 import { popularMediaRouter } from "./PopularMedia.router.js";
 import { mediaDetailsRouter } from "./mediaDetails.router.js";
-import { imagesRouter } from "./images.js";
+import { imagesRouter } from "./images.router.js";
 import { searchRouter } from "./search.router.js";
 
 export const routes: { route: string; router: Router }[] = [
