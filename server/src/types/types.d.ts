@@ -172,3 +172,19 @@ interface ITVShowDetails extends IMediaDetails {
   tagline: string;
   type: string;
 }
+
+interface ISearchMedia {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: ISearchItems[];
+}
+
+interface ISearchItems {
+  id: number;
+  title: string;
+  media_type: TMedia;
+  overview: string;
+  poster_path: string;
+  backdrop_path: string;
+}

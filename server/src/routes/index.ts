@@ -4,6 +4,7 @@ import { trendingRouter } from "./Trending.router.js";
 import { popularMediaRouter } from "./PopularMedia.router.js";
 import { mediaDetailsRouter } from "./mediaDetails.router.js";
 import { imagesRouter } from "./images.js";
+import { searchRouter } from "./search.router.js";
 
 export const routes: { route: string; router: Router }[] = [
   { route: "/", router: appRouter },
@@ -11,4 +12,5 @@ export const routes: { route: string; router: Router }[] = [
   { route: "/popular", router: popularMediaRouter },
   { route: "/details", router: mediaDetailsRouter },
   { route: "/image", router: imagesRouter },
+  { route: "/search", router: searchRouter },
 ];
