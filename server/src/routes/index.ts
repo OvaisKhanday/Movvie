@@ -5,6 +5,7 @@ import { popularMediaRouter } from "./popularMedia.router.js";
 import { mediaDetailsRouter } from "./mediaDetails.router.js";
 import { imagesRouter } from "./images.router.js";
 import { searchRouter } from "./search.router.js";
+import { userRouter } from "./user.router.js";
 
 export const routes: { route: string; router: Router }[] = [
   { route: "/", router: appRouter },
@@ -13,4 +14,5 @@ export const routes: { route: string; router: Router }[] = [
   { route: "/details", router: mediaDetailsRouter },
   { route: "/image", router: imagesRouter },
   { route: "/search", router: searchRouter },
+  { route: "/auth", router: userRouter },
 ];
