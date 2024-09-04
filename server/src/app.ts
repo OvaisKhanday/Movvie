@@ -4,8 +4,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log("Port: ", process.env.PORT);
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());

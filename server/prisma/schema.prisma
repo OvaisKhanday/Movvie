@@ -16,7 +16,7 @@ model User{
   email     String   @unique @db.VarChar(64)
   password  String   @db.VarChar(255)
   name      String   @db.VarChar(64)
-  age       Int      @db.UnsignedTinyInt
+  age       String   @db.VarChar(4)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isAdmin   Boolean? @default(false)
@@ -28,7 +28,7 @@ model User{
 model UserImage{
   id             String      @id @default(uuid())
   userId         String      @unique
-  image          Bytes?      @db.Blob
+  image          Bytes?      @db.LongBlob
   uploadedAt     DateTime    @default(now())
   user           User        @relation(fields: [userId],references: [id])
 }
