@@ -7,13 +7,9 @@ app.use(express.urlencoded());
 
 routes.forEach((r) => app.use(r.route, r.router));
 
-app.get("/", (req, res) => {
-  res.send("Setup Node with TS and JEST with Nodemon watching");
-});
-
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).send("Internal Server Error");
+  console.error(err.message);
+  res.status(500).send(`"Internal Server Error" : ${err.message}`);
 });
 
 app.listen(8080, () => {

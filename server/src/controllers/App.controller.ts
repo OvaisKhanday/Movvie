@@ -1,7 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
-function get(req: Request, res: Response) {
+function get(req: Request, res: Response, next: NextFunction) {
   res.status(200).send("Welcome to Movvie");
 }
 
-export default { get };
+export const appController = {
+  get,
+};

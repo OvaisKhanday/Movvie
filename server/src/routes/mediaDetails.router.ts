@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getMovieDetails, getTVShowDetails } from "../controllers/mediaDetails.controller.js";
+import { mediaDetailsController } from "../controllers/index.js";
 
 const router = Router();
 
-router.get("/movie/:id", getMovieDetails);
-router.get("/tv/:id", getTVShowDetails);
+router.get("/movie/:id", mediaDetailsController.getMovieDetails);
+router.get("/tv/:id", mediaDetailsController.getTVShowDetails);
 
 export { router as mediaDetailsRouter };

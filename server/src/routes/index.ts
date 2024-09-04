@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { appRouter } from "./App.router.js";
-import { trendingRouter } from "./Trending.router.js";
-import { popularMediaRouter } from "./PopularMedia.router.js";
+import { appRouter } from "./app.router.js";
+import { trendingRouter } from "./trending.router.js";
+import { popularMediaRouter } from "./popularMedia.router.js";
 import { mediaDetailsRouter } from "./mediaDetails.router.js";
 import { imagesRouter } from "./images.router.js";
 import { searchRouter } from "./search.router.js";

@@ -1,4 +1,4 @@
-export async function getSearched(page: number, query: string): Promise<ISearchMedia | null> {
+async function getSearched(page: number, query: string): Promise<ISearchMedia | null> {
   // --url 'https://api.themoviedb.org/3/search/multi?query=trap&include_adult=false&language=en-US&page=1' \
 
   const searched: ISearchMedia = {
@@ -21,6 +21,8 @@ export async function getSearched(page: number, query: string): Promise<ISearchM
 
   return Promise.resolve<ISearchMedia | null>(searched);
 }
+
+export { getSearched };
 
 const mockedSearch = {
   page: 1,

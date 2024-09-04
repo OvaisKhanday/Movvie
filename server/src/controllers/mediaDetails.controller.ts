@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { fetchMovieDetails, fetchTVShowDetails } from "../api/mediaDetails.js";
+import { fetchMovieDetails, fetchTVShowDetails } from "../api/index.js";
 
 async function getMovieDetails(req: Request, res: Response, next: NextFunction) {
   try {
-    if (req.params.id == null) throw new Error("id not found");
-    const id = Number.parseInt(req.params.id);
+    const id = req.params.id;
+    if (id == null) throw new Error("id not found");
     const movie: IMovieDetails | null = await fetchMovieDetails(id);
-    if (movie == null) throw new Error("movie not found");
+    if (movie == null) return res.status(404).send("media not found");
     res.status(200).json(movie);
   } catch (error) {
     next(error);
@@ -15,14 +15,14 @@ async function getMovieDetails(req: Request, res: Response, next: NextFunction) 
 
 async function getTVShowDetails(req: Request, res: Response, next: NextFunction) {
   try {
-    if (req.params.id == null) throw new Error("id not found");
-    const id = Number.parseInt(req.params.id);
+    const id = req.params.id;
+    if (id == null) throw new Error("id not found");
     const tvShow: ITVShowDetails | null = await fetchTVShowDetails(id);
-    if (tvShow == null) throw new Error("tv show not found");
+    if (tvShow == null) return res.status(404).send("media not found");
     res.status(200).json(tvShow);
   } catch (error) {
     next(error);
   }
 }
 
-export { getMovieDetails, getTVShowDetails };
+export const mediaDetailsController = { getMovieDetails, getTVShowDetails };
