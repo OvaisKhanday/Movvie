@@ -1,9 +1,9 @@
 import prisma from "../db/dbConnect.js";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-async function registerUser(request: Request, response: Response) {
+async function registerUser(request: Request, response: Response, next: NextFunction) {
   try {
     // taking every data from body
     const { username, email, password, name, age } = request.body;
@@ -12,7 +12,6 @@ async function registerUser(request: Request, response: Response) {
     if (!username || !email || !password || !name || !age) {
       return response.status(400).json({
         success: false,
-
         message: "All the fields are required",
       });
     }
@@ -27,7 +26,6 @@ async function registerUser(request: Request, response: Response) {
     if (existedUser) {
       return response.status(409).json({
         success: false,
-
         message: "User already exists with this username or email",
       });
     }
@@ -76,15 +74,11 @@ async function registerUser(request: Request, response: Response) {
       data: registeredUser,
     });
   } catch (error) {
-    console.error("Error while registering user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while registering user",
-    });
+    next(error);
   }
 }
 
-async function loginUser(request: Request, response: Response) {
+async function loginUser(request: Request, response: Response, next: NextFunction) {
   try {
     // taking the username or email and password from body
     const { username, email, password } = request.body;
@@ -135,9 +129,7 @@ async function loginUser(request: Request, response: Response) {
       expiresIn: "1d",
     });
 
-    const imageBase64 = user.picture?.image
-      ? Buffer.from(user.picture.image).toString("base64")
-      : null;
+    const imageBase64 = user.picture?.image ? Buffer.from(user.picture.image).toString("base64") : null;
 
     response.cookie("token", token, {
       httpOnly: true,
@@ -157,15 +149,11 @@ async function loginUser(request: Request, response: Response) {
       },
     });
   } catch (error) {
-    console.error("Error while log in user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while log in user",
-    });
+    next(error);
   }
 }
 
-async function logoutUser(request: Request, response: Response) {
+async function logoutUser(request: Request, response: Response, next: NextFunction) {
   try {
     response.clearCookie("token", {
       httpOnly: true,
@@ -177,12 +165,8 @@ async function logoutUser(request: Request, response: Response) {
       message: "Log out successful",
     });
   } catch (error) {
-    console.error("Error while logout user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while logout user",
-    });
+    next(error);
   }
 }
 
-export { registerUser, loginUser, logoutUser };
+export const userController = { registerUser, loginUser, logoutUser };
