@@ -2,7 +2,6 @@ import { Router } from "express";
 import upload from "../middlewares/multer.middleware.js";
 import { userController } from "../controllers/index.js";
 
-
 const router = Router();
 
 router.post("/signup", upload.single("image"), userController.registerUser);
