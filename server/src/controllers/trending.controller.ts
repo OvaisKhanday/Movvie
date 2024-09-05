@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { getTrending } from "../api/trending.js";
+import { getTrending } from "../api/index.js";
 
-async function get(req: Request, res: Response, next: NextFunction) {
+async function getAll(req: Request, res: Response, next: NextFunction) {
   try {
-    const page = Number.parseInt(req.query.page?.toString() ?? "1");
+    const parsedNum = Number.parseInt(req.query.page?.toString() ?? "1");
+    const page = isNaN(parsedNum) ? 1 : parsedNum;
     const trending: ITrendingResponse | null = await getTrending(page);
-    if (trending == null) throw new Error("trending not found");
+    if (trending == null) return res.status(404).send("media not found");
     const response: (IMovie | ITVShow)[] = trending.results.map((result) => {
       if (result.media_type === "movie") {
         const newMovie: IMovie = {
@@ -37,4 +38,4 @@ async function get(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { get };
+export const trendingController = { getAll };

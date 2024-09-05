@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getThumbnail, getHighResImage } from "../controllers/image.controller.js";
+import { imageController } from "../controllers/index.js";
 
 const router = Router();
 
-router.get("/thumbnail/:img_id", getThumbnail);
-router.get("/high/:img_id", getHighResImage);
+router.get("/thumbnail/:img_id", imageController.getThumbnail);
+router.get("/high/:img_id", imageController.getHighResImage);
 
 export { router as imagesRouter };

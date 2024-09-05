@@ -1,9 +1,13 @@
 import prisma from "../db/dbConnect.js";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-async function registerUser(request: Request, response: Response) {
+async function registerUser(
+  request: Request,
+  response: Response,
+  next: NextFunction
+) {
   try {
     // taking every data from body
     const { username, email, password, name, age } = request.body;
@@ -12,7 +16,6 @@ async function registerUser(request: Request, response: Response) {
     if (!username || !email || !password || !name || !age) {
       return response.status(400).json({
         success: false,
-
         message: "All the fields are required",
       });
     }
@@ -27,7 +30,6 @@ async function registerUser(request: Request, response: Response) {
     if (existedUser) {
       return response.status(409).json({
         success: false,
-
         message: "User already exists with this username or email",
       });
     }
@@ -54,37 +56,59 @@ async function registerUser(request: Request, response: Response) {
             }
           : undefined,
       },
-    });
-
-    const registeredUser = await prisma.user.findUnique({
-      where: {
-        email: user.email,
-      },
       select: {
         username: true,
         email: true,
         age: true,
         name: true,
         id: true,
+        picture: true,
       },
+    });
+
+    const tokenData = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    };
+
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
+      expiresIn: "1d",
+    });
+
+    const imageBase64 = user.picture?.image
+      ? Buffer.from(user.picture.image).toString("base64")
+      : null;
+
+    response.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     // sending response after user created successfully
     return response.status(201).json({
       success: true,
       message: "Register user successfully",
-      data: registeredUser,
+
+      data: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        userImage: imageBase64 ? `data:image/jpeg;base64,${imageBase64}` : null,
+      },
     });
   } catch (error) {
-    console.error("Error while registering user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while registering user",
-    });
+    next(error);
   }
 }
 
-async function loginUser(request: Request, response: Response) {
+async function loginUser(
+  request: Request,
+  response: Response,
+  next: NextFunction
+) {
   try {
     // taking the username or email and password from body
     const { username, email, password } = request.body;
@@ -94,6 +118,13 @@ async function loginUser(request: Request, response: Response) {
       return response.status(400).json({
         success: false,
         message: "Username or Email required",
+      });
+    }
+
+    if (!password) {
+      return response.status(400).json({
+        success: false,
+        message: "Password required",
       });
     }
 
@@ -134,7 +165,6 @@ async function loginUser(request: Request, response: Response) {
     const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
-
     const imageBase64 = user.picture?.image
       ? Buffer.from(user.picture.image).toString("base64")
       : null;
@@ -157,15 +187,15 @@ async function loginUser(request: Request, response: Response) {
       },
     });
   } catch (error) {
-    console.error("Error while log in user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while log in user",
-    });
+    next(error);
   }
 }
 
-async function logoutUser(request: Request, response: Response) {
+async function logoutUser(
+  request: Request,
+  response: Response,
+  next: NextFunction
+) {
   try {
     response.clearCookie("token", {
       httpOnly: true,
@@ -177,12 +207,8 @@ async function logoutUser(request: Request, response: Response) {
       message: "Log out successful",
     });
   } catch (error) {
-    console.error("Error while logout user : ", error);
-    return response.status(500).json({
-      success: false,
-      message: "Error while logout user",
-    });
+    next(error);
   }
 }
 
-export { registerUser, loginUser, logoutUser };
+export const userController = { registerUser, loginUser, logoutUser };
