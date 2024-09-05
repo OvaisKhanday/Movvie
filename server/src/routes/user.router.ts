@@ -1,16 +1,12 @@
 import { Router } from "express";
 import upload from "../middlewares/multer.middleware.js";
-import {
-  loginUser,
-  logoutUser,
-  registerUser,
-} from "../controllers/user.controller.js";
+import { userController } from "../controllers/user.controller.js";
 
 const router = Router();
 
-router.post("/signup", upload.single("image"), registerUser);
+router.post("/signup", upload.single("image"), userController.registerUser);
 
-router.post("/login", loginUser);
-router.get("/logout", logoutUser);
+router.post("/login", userController.loginUser);
+router.get("/logout", userController.logoutUser);
 
 export { router as userRouter };
