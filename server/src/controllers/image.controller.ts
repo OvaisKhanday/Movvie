@@ -20,4 +20,4 @@ function getHighResImage(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { getThumbnail, getHighResImage };
+export const imageController = { getThumbnail, getHighResImage };

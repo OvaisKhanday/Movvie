@@ -1,6 +1,7 @@
 import multer from "multer";
 
 const storage = multer.memoryStorage();
+
 const upload = multer({
   storage,
   fileFilter(req, file, callback) {
@@ -12,5 +13,6 @@ const upload = multer({
     }
   },
 });
+
 
 export default upload;

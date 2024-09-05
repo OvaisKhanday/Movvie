@@ -8,6 +8,8 @@ async function registerUser(
   response: Response,
   next: NextFunction
 ) {
+async function registerUser(request: Request, response: Response, next: NextFunction) {
+
   try {
     // taking every data from body
     const { username, email, password, name, age } = request.body;
@@ -56,12 +58,19 @@ async function registerUser(
             }
           : undefined,
       },
+    });
+
+    const registeredUser = await prisma.user.findUnique({
+      where: {
+        email: user.email,
+      },
       select: {
         username: true,
         email: true,
         age: true,
         name: true,
         id: true,
+
         picture: true,
       },
     });
@@ -86,10 +95,14 @@ async function registerUser(
       maxAge: 24 * 60 * 60 * 1000,
     });
 
+      },
+    });
+
     // sending response after user created successfully
     return response.status(201).json({
       success: true,
       message: "Register user successfully",
+
       data: {
         id: user.id,
         username: user.username,
@@ -97,17 +110,23 @@ async function registerUser(
         name: user.name,
         userImage: imageBase64 ? `data:image/jpeg;base64,${imageBase64}` : null,
       },
+
+      data: registeredUser,
+
     });
   } catch (error) {
     next(error);
   }
 }
 
+
 async function loginUser(
   request: Request,
   response: Response,
   next: NextFunction
 ) {
+async function loginUser(request: Request, response: Response, next: NextFunction) {
+
   try {
     // taking the username or email and password from body
     const { username, email, password } = request.body;
@@ -169,6 +188,9 @@ async function loginUser(
       ? Buffer.from(user.picture.image).toString("base64")
       : null;
 
+    const imageBase64 = user.picture?.image ? Buffer.from(user.picture.image).toString("base64") : null;
+
+
     response.cookie("token", token, {
       httpOnly: true,
       secure: true,
@@ -191,11 +213,13 @@ async function loginUser(
   }
 }
 
+
 async function logoutUser(
   request: Request,
   response: Response,
   next: NextFunction
 ) {
+async function logoutUser(request: Request, response: Response, next: NextFunction) {
   try {
     response.clearCookie("token", {
       httpOnly: true,

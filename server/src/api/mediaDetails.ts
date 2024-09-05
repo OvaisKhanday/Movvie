@@ -1,4 +1,4 @@
-async function fetchMovieDetails(id: number): Promise<IMovieDetails | null> {
+async function fetchMovieDetails(id: string): Promise<IMovieDetails | null> {
   // 'https://api.themoviedb.org/3/movie/1022789?language=en-US'
   const casts = await fetchMovieCasts(id);
   const movie: IMovieDetails = {
@@ -30,13 +30,13 @@ async function fetchMovieDetails(id: number): Promise<IMovieDetails | null> {
   return await Promise.resolve<IMovieDetails | null>(movie);
 }
 
-async function fetchMovieCasts(id: number): Promise<string[]> {
+async function fetchMovieCasts(id: string): Promise<string[]> {
   // 'https://api.themoviedb.org/3/movie/1022789/credits?language=en-US' \
 
   return movieCredits.cast.slice(0, 25).map((cast) => cast.name);
 }
 
-async function fetchTVShowDetails(id: number): Promise<ITVShowDetails | null> {
+async function fetchTVShowDetails(id: string): Promise<ITVShowDetails | null> {
   // --url 'https://api.themoviedb.org/3/tv/series_id?language=en-US' \
   const casts = await fetchTVShowCasts(id);
   const tvShow: ITVShowDetails = {
@@ -66,7 +66,7 @@ async function fetchTVShowDetails(id: number): Promise<ITVShowDetails | null> {
   };
   return tvShow;
 }
-async function fetchTVShowCasts(id: number): Promise<string[]> {
+async function fetchTVShowCasts(id: string): Promise<string[]> {
   // --url 'https://api.themoviedb.org/3/tv/84773/credits?language=en-US' \
 
   return mockedTVShowCredits.cast.slice(0, 25).map((cast) => cast.name);
