@@ -16,7 +16,7 @@ function validateSignupDetails(
     email?: string;
     password?: string;
     name?: string;
-    age?: number;
+    age?: any;
   } = req.body;
 
   if (!username || !email || !password || !name || !age || isNaN(age)) {
@@ -25,6 +25,8 @@ function validateSignupDetails(
       message: "All the fields are required",
     });
   }
+
+  req.body.age = Number.parseInt(age);
 
   next();
 }

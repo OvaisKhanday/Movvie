@@ -7,9 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User
 model User {
-  id        Int        @id @default(autoincrement())
+  id        Int        @id @default(autoincrement()) @db.UnsignedInt
   username  String     @unique @db.VarChar(32)
   email     String     @unique @db.VarChar(64)
   password  String     @db.VarChar(255)
@@ -22,15 +21,16 @@ model User {
 }
 
 model Bookmark {
-  id           Int
-  title        String
+  id           Int       @db.UnsignedInt
+  title        String    @db.VarChar(127)
   adult        Boolean   @default(false)
-  backdropPath String
-  posterPath   String
+  backdropPath String    @db.VarChar(255)
+  posterPath   String    @db.VarChar(255)
   mediaType    MediaType
-  startDate    String
+  startDate    DateTime  @db.Date
   user         User      @relation(fields: [userId], references: [id])
-  userId       Int
+  userId       Int       @db.UnsignedInt
+  createdAt    DateTime  @default(now())
 
   @@id([userId, id])
   @@index([userId])

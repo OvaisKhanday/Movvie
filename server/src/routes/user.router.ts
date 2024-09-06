@@ -6,8 +6,8 @@ const router = Router();
 
 router.post(
   "/signup",
-  userMiddleware.validateSignupDetails,
   multerUpload.single("image"),
+  userMiddleware.validateSignupDetails,
   userController.registerUser
 );
 
