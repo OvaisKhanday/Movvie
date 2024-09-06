@@ -1,392 +1,47 @@
-async function getSearched(page: number, query: string): Promise<ISearchMedia | null> {
-  // --url 'https://api.themoviedb.org/3/search/multi?query=trap&include_adult=false&language=en-US&page=1' \
+import axios from "axios";
 
-  const searched: ISearchMedia = {
-    page: mockedSearch.page,
-    total_pages: mockedSearch.total_pages,
-    total_results: mockedSearch.total_results,
-    results: mockedSearch.results
-      .filter((result) => result.title?.toLowerCase().includes(query.toLowerCase()))
-      .map((result) => {
-        return {
-          id: result.id!,
-          media_type: result.media_type === "movie" ? "movie" : "tv",
-          poster_path: result.poster_path!,
-          title: (result.media_type === "movie" ? result.title : result.name)!,
-          overview: result.overview!,
-          backdrop_path: result.backdrop_path!,
-        };
-      }),
-  };
+async function getSearched(
+  page: number,
+  query: string
+): Promise<ISearchMedia | null> {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}&api_key=${process.env.TMDB_API_KEY}`
+    );
+    const searchResult = response.data;
 
-  return Promise.resolve<ISearchMedia | null>(searched);
+    const searched: ISearchMedia = {
+      page: searchResult.page,
+      total_pages: searchResult.total_pages,
+      total_results: searchResult.total_results,
+      results: searchResult.results.map(
+        (result: {
+          id: any;
+          media_type: string;
+          poster_path: any;
+          title: any;
+          name: any;
+          overview: any;
+          backdrop_path: any;
+        }) => {
+          return {
+            id: result.id!,
+            media_type: result.media_type === "movie" ? "movie" : "tv",
+            poster_path: result.poster_path!,
+            title: (result.media_type === "movie"
+              ? result.title
+              : result.name)!,
+            overview: result.overview!,
+            backdrop_path: result.backdrop_path!,
+          };
+        }
+      ),
+    };
+
+    return Promise.resolve<ISearchMedia | null>(searched);
+  } catch (error: any) {
+    throw new Error("Error getting search result", error);
+  }
 }
 
 export { getSearched };
-
-const mockedSearch = {
-  page: 1,
-  results: [
-    {
-      backdrop_path: "/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg",
-      id: 1022789,
-      title: "Inside Out 2",
-      original_title: "Inside Out 2",
-      overview:
-        "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
-      poster_path: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [16, 10751, 12, 35],
-      popularity: 2452.837,
-      release_date: "2024-06-11",
-      video: false,
-      vote_average: 7.684,
-      vote_count: 3226,
-    },
-    {
-      backdrop_path: "/NNC08YmJFFlLi1prBkK8quk3dp.jpg",
-      id: 84773,
-      name: "The Lord of the Rings: The Rings of Power",
-      original_name: "The Lord of the Rings: The Rings of Power",
-      overview:
-        "Beginning in a time of relative peace, we follow an ensemble cast of characters as they confront the re-emergence of evil to Middle-earth. From the darkest depths of the Misty Mountains, to the majestic forests of Lindon, to the breathtaking island kingdom of Númenor, to the furthest reaches of the map, these kingdoms and characters will carve out legacies that live on long after they are gone.",
-      poster_path: "/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "en",
-      genre_ids: [10759, 10765, 18],
-      popularity: 2374.751,
-      first_air_date: "2022-09-01",
-      vote_average: 7.3,
-      vote_count: 2664,
-      origin_country: ["US"],
-    },
-    {
-      backdrop_path: "/7aPrv2HFssWcOtpig5G3HEVk3uS.jpg",
-      id: 718821,
-      title: "Twisters",
-      original_title: "Twisters",
-      overview:
-        "As storm season intensifies, the paths of former storm chaser Kate Carter and reckless social-media superstar Tyler Owens collide when terrifying phenomena never seen before are unleashed. The pair and their competing teams find themselves squarely in the paths of multiple storm systems converging over central Oklahoma in the fight of their lives.",
-      poster_path: "/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 12, 18],
-      popularity: 1891.741,
-      release_date: "2024-07-10",
-      video: false,
-      vote_average: 7.021,
-      vote_count: 1201,
-    },
-    {
-      backdrop_path: "/p5kpFS0P3lIwzwzHBOULQovNWyj.jpg",
-      id: 1032823,
-      title: "Trap",
-      original_title: "Trap",
-      overview: "A father and teen daughter attend a pop concert, where they realize they're at the center of a dark and sinister event.",
-      poster_path: "/jwoaKYVqPgYemFpaANL941EF94R.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [53],
-      popularity: 557.533,
-      release_date: "2024-07-31",
-      video: false,
-      vote_average: 6.5,
-      vote_count: 615,
-    },
-    {
-      backdrop_path: "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
-      id: 945961,
-      title: "Alien: Romulus",
-      original_title: "Alien: Romulus",
-      overview:
-        "While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.",
-      poster_path: "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [27, 878],
-      popularity: 1189.05,
-      release_date: "2024-08-13",
-      video: false,
-      vote_average: 7.148,
-      vote_count: 789,
-    },
-    {
-      backdrop_path: "/bizhlTVjifYQUu4Xrdt7m3TYr7d.jpg",
-      id: 1226578,
-      title: "Longlegs",
-      original_title: "Longlegs",
-      overview:
-        "FBI Agent Lee Harker is assigned to an unsolved serial killer case that takes an unexpected turn, revealing evidence of the occult. Harker discovers a personal connection to the killer and must stop him before he strikes again.",
-      poster_path: "/5aj8vVGFwGVbQQs26ywhg4Zxk2L.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [80, 27, 53],
-      popularity: 1515.397,
-      release_date: "2024-07-10",
-      video: false,
-      vote_average: 6.63,
-      vote_count: 606,
-    },
-    {
-      backdrop_path: "/mKOBdgaEFguADkJhfFslY7TYxIh.jpg",
-      id: 365177,
-      title: "Borderlands",
-      original_title: "Borderlands",
-      overview:
-        "Returning to her home planet, an infamous bounty hunter forms an unexpected alliance with a team of unlikely heroes. Together, they battle monsters and dangerous bandits to protect a young girl who holds the key to unimaginable power.",
-      poster_path: "/865DntZzOdX6rLMd405R0nFkLmL.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 878, 35],
-      popularity: 380.925,
-      release_date: "2024-08-07",
-      video: false,
-      vote_average: 5.638,
-      vote_count: 258,
-    },
-    {
-      backdrop_path: "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
-      id: 533535,
-      title: "Deadpool & Wolverine",
-      original_title: "Deadpool & Wolverine",
-      overview:
-        "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
-      poster_path: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 35, 878],
-      popularity: 5116.296,
-      release_date: "2024-07-24",
-      video: false,
-      vote_average: 7.768,
-      vote_count: 2560,
-    },
-    {
-      backdrop_path: "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
-      id: 519182,
-      title: "Despicable Me 4",
-      original_title: "Despicable Me 4",
-      overview:
-        "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
-      poster_path: "/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [16, 10751, 35, 28],
-      popularity: 2247.902,
-      release_date: "2024-06-20",
-      video: false,
-      vote_average: 7.264,
-      vote_count: 1367,
-    },
-    {
-      backdrop_path: "/wNAhuOZ3Zf84jCIlrcI6JhgmY5q.jpg",
-      id: 786892,
-      title: "Furiosa: A Mad Max Saga",
-      original_title: "Furiosa: A Mad Max Saga",
-      overview:
-        "As the world fell, young Furiosa is snatched from the Green Place of Many Mothers and falls into the hands of a great Biker Horde led by the Warlord Dementus. Sweeping through the Wasteland they come across the Citadel presided over by The Immortan Joe. While the two Tyrants war for dominance, Furiosa must survive many trials as she puts together the means to find her way home.",
-      poster_path: "/iADOJ8Zymht2JPMoy3R7xceZprc.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 12, 878],
-      popularity: 706.332,
-      release_date: "2024-05-22",
-      video: false,
-      vote_average: 7.586,
-      vote_count: 2918,
-    },
-    {
-      backdrop_path: "/AmR3JG1VQVxU8TfAvljUhfSFUOx.jpg",
-      id: 348,
-      title: "Alien",
-      original_title: "Alien",
-      overview:
-        "During its return to the earth, commercial spaceship Nostromo intercepts a distress signal from a distant planet. When a three-member team of the crew discovers a chamber containing thousands of eggs on the planet, a creature inside one of the eggs attacks an explorer. The entire crew is unaware of the impending nightmare set to descend upon them when the alien parasite planted inside its unfortunate host is birthed.",
-      poster_path: "/vfrQk5IPloGg1v9Rzbh2Eg3VGyM.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [27, 878],
-      popularity: 420.599,
-      release_date: "1979-05-25",
-      video: false,
-      vote_average: 8.2,
-      vote_count: 14407,
-    },
-    {
-      backdrop_path: "/zB0g0VaRKHfRrvBT4ouHK5W967W.jpg",
-      id: 956842,
-      title: "Fly Me to the Moon",
-      original_title: "Fly Me to the Moon",
-      overview:
-        "Sparks fly in all directions as marketing maven Kelly Jones, brought in to fix NASA's public image, wreaks havoc on Apollo 11 launch director Cole Davis' already difficult task of putting a man on the moon. When the White House deems the mission too important to fail, Jones is directed to stage a fake moon landing as backup, and the countdown truly begins.",
-      poster_path: "/gjk8YdXpItoC1in53FCrZMFIuBx.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [10749, 35],
-      popularity: 364.693,
-      release_date: "2024-07-10",
-      video: false,
-      vote_average: 6.952,
-      vote_count: 395,
-    },
-    {
-      backdrop_path: "/9Piw6Zju39bn3enIDLZzPfjMTBR.jpg",
-      id: 102621,
-      name: "KAOS",
-      original_name: "KAOS",
-      overview:
-        "As discord reigns on Mount Olympus and almighty Zeus spirals into paranoia, three mortals are destined to reshape the future of humankind.",
-      poster_path: "/dDBTUSl3tRsOeKC1jZugBSFHy9I.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "en",
-      genre_ids: [35, 10765, 18],
-      popularity: 262.168,
-      first_air_date: "2024-08-29",
-      vote_average: 7.736,
-      vote_count: 36,
-      origin_country: ["GB"],
-    },
-    {
-      backdrop_path: "/2rmK7mnchw9Xr3XdiTFSxTTLXqv.jpg",
-      id: 37854,
-      name: "One Piece",
-      original_name: "ワンピース",
-      overview:
-        'Years ago, the fearsome Pirate King, Gol D. Roger was executed leaving a huge pile of treasure and the famous "One Piece" behind. Whoever claims the "One Piece" will be named the new King of the Pirates.\n\nMonkey D. Luffy, a boy who consumed a "Devil Fruit," decides to follow in the footsteps of his idol, the pirate Shanks, and find the One Piece. It helps, of course, that his body has the properties of rubber and that he\'s surrounded by a bevy of skilled fighters and thieves to help him along the way.\n\nLuffy will do anything to get the One Piece and become King of the Pirates!',
-      poster_path: "/e3NBGiAifW9Xt8xD5tpARskjccO.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "ja",
-      genre_ids: [10759, 35, 16],
-      popularity: 205.714,
-      first_air_date: "1999-10-20",
-      vote_average: 8.7,
-      vote_count: 4587,
-      origin_country: ["JP"],
-    },
-    {
-      backdrop_path: "/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg",
-      id: 94997,
-      name: "House of the Dragon",
-      original_name: "House of the Dragon",
-      overview:
-        "The Targaryen dynasty is at the absolute apex of its power, with more than 15 dragons under their yoke. Most empires crumble from such heights. In the case of the Targaryens, their slow fall begins when King Viserys breaks with a century of tradition by naming his daughter Rhaenyra heir to the Iron Throne. But when Viserys later fathers a son, the court is shocked when Rhaenyra retains her status as his heir, and seeds of division sow friction across the realm.",
-      poster_path: "/7QMsOTMUswlwxJP0rTTZfmz2tX2.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "en",
-      genre_ids: [10765, 18, 10759],
-      popularity: 1226.708,
-      first_air_date: "2022-08-21",
-      vote_average: 8.395,
-      vote_count: 4838,
-      origin_country: ["US"],
-    },
-    {
-      backdrop_path: "/fmFPP1pXrV9gK4KRNk4KijT0QSx.jpg",
-      id: 239287,
-      name: "Terminator Zero",
-      original_name: "ターミネーター 0",
-      overview:
-        "A warrior from a post-apocalyptic future travels to 1997 to protect an AI scientist being hunted by an unfeeling — and indestructible — cyborg.",
-      poster_path: "/v4sbn6IsJGAIZNHjdB4CprvS7zo.jpg",
-      media_type: "tv",
-      adult: false,
-      original_language: "ja",
-      genre_ids: [16, 10765, 10759],
-      popularity: 535.212,
-      first_air_date: "2024-08-29",
-      vote_average: 7.7,
-      vote_count: 42,
-      origin_country: ["US", "JP"],
-    },
-    {
-      backdrop_path: "/fypydCipcWDKDTTCoPucBsdGYXW.jpg",
-      id: 653346,
-      title: "Kingdom of the Planet of the Apes",
-      original_title: "Kingdom of the Planet of the Apes",
-      overview:
-        "Several generations following Caesar's reign, apes – now the dominant species – live harmoniously while humans have been reduced to living in the shadows. As a new tyrannical ape leader builds his empire, one young ape undertakes a harrowing journey that will cause him to question all he's known about the past and to make choices that will define a future for apes and humans alike.",
-      poster_path: "/gKkl37BQuKTanygYQG1pyYgLVgf.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [878, 12, 28],
-      popularity: 793.627,
-      release_date: "2024-05-08",
-      video: false,
-      vote_average: 7.137,
-      vote_count: 2723,
-    },
-    {
-      backdrop_path: "/pzFbYJfqGKlGxOsDIIsUi6YxVQ.jpg",
-      id: 1094138,
-      title: "Jackpot!",
-      original_title: "Jackpot!",
-      overview:
-        "In the near future, a 'Grand Lottery' has been established - the catch: kill the winner before sundown to legally claim their multi-billion dollar jackpot. When Katie Kim mistakenly finds herself with the winning ticket, she reluctantly joins forces with amateur lottery protection agent Noel Cassidy who must get her to sundown in exchange for a piece of her prize.",
-      poster_path: "/fOsamTFIyGxjw1jLSKdZYxQBJOT.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [35, 878],
-      popularity: 1230.354,
-      release_date: "2024-08-13",
-      video: false,
-      vote_average: 6.438,
-      vote_count: 372,
-    },
-    {
-      backdrop_path: "/9BQqngPfwpeAfK7c2H3cwIFWIVR.jpg",
-      id: 1079091,
-      title: "It Ends with Us",
-      original_title: "It Ends with Us",
-      overview:
-        "When a woman's first love suddenly reenters her life, her relationship with a charming, but abusive neurosurgeon is upended, and she realizes she must learn to rely on her own strength to make an impossible choice for her future.",
-      poster_path: "/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [10749, 18],
-      popularity: 1312.259,
-      release_date: "2024-08-07",
-      video: false,
-      vote_average: 6.835,
-      vote_count: 230,
-    },
-    {
-      backdrop_path: "/4ft6TR9wA6bra0RLL6G7JFDQ5t1.jpg",
-      id: 704239,
-      title: "The Union",
-      original_title: "The Union",
-      overview:
-        "A New Jersey construction worker goes from regular guy to aspiring spy when his long-lost high school sweetheart recruits him for an espionage mission.",
-      poster_path: "/d9CTnTHip1RbVi2OQbA2LJJQAGI.jpg",
-      media_type: "movie",
-      adult: false,
-      original_language: "en",
-      genre_ids: [28, 35],
-      popularity: 1441.314,
-      release_date: "2024-08-15",
-      video: false,
-      vote_average: 6.269,
-      vote_count: 507,
-    },
-  ],
-  total_pages: 1000,
-  total_results: 20000,
-};
