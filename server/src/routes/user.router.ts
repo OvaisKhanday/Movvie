@@ -1,12 +1,21 @@
 import { Router } from "express";
-import upload from "../middlewares/multer.middleware.js";
+import { userMiddleware, multerUpload } from "../middlewares/index.js";
 import { userController } from "../controllers/index.js";
 
 const router = Router();
 
-router.post("/signup", upload.single("image"), userController.registerUser);
+router.post(
+  "/signup",
+  userMiddleware.validateSignupDetails,
+  multerUpload.single("image"),
+  userController.registerUser
+);
 
-router.post("/login", userController.loginUser);
+router.post(
+  "/login",
+  userMiddleware.validateLoginDetails,
+  userController.loginUser
+);
 router.get("/logout", userController.logoutUser);
 
 export { router as userRouter };

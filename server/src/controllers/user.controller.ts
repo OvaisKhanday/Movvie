@@ -10,15 +10,19 @@ async function registerUser(
 ) {
   try {
     // taking every data from body
-    const { username, email, password, name, age } = request.body;
-
-    // validate all the fields
-    if (!username || !email || !password || !name || !age) {
-      return response.status(400).json({
-        success: false,
-        message: "All the fields are required",
-      });
-    }
+    const {
+      username,
+      email,
+      password,
+      name,
+      age,
+    }: {
+      username: string;
+      email: string;
+      password: string;
+      name: string;
+      age: number;
+    } = request.body;
 
     // check user already exists or not
     const existedUser = await prisma.user.findFirst({
@@ -47,14 +51,7 @@ async function registerUser(
         password: hashedPassword,
         name,
         age,
-        picture: image
-          ? {
-              create: {
-                image,
-                uploadedAt: new Date(),
-              },
-            }
-          : undefined,
+        picture: image,
       },
       select: {
         username: true,
@@ -76,8 +73,8 @@ async function registerUser(
       expiresIn: "1d",
     });
 
-    const imageBase64 = user.picture?.image
-      ? Buffer.from(user.picture.image).toString("base64")
+    const imageBase64 = user.picture
+      ? Buffer.from(user.picture).toString("base64")
       : null;
 
     response.cookie("token", token, {
@@ -91,11 +88,12 @@ async function registerUser(
       success: true,
       message: "Register user successfully",
 
-      data: {
+      user: {
         id: user.id,
         username: user.username,
         email: user.email,
         name: user.name,
+        age: user.age,
         userImage: imageBase64 ? `data:image/jpeg;base64,${imageBase64}` : null,
       },
     });
@@ -111,30 +109,16 @@ async function loginUser(
 ) {
   try {
     // taking the username or email and password from body
-    const { username, email, password } = request.body;
-
-    // check if username or email provided
-    if (!(username || email)) {
-      return response.status(400).json({
-        success: false,
-        message: "Username or Email required",
-      });
-    }
-
-    if (!password) {
-      return response.status(400).json({
-        success: false,
-        message: "Password required",
-      });
-    }
+    const {
+      username,
+      email,
+      password,
+    }: { username: string; email: string; password: string } = request.body;
 
     // check the user exists or not
     const user = await prisma.user.findFirst({
       where: {
         OR: [{ email: email }, { username: username }],
-      },
-      include: {
-        picture: true,
       },
     });
 
@@ -165,8 +149,8 @@ async function loginUser(
     const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
-    const imageBase64 = user.picture?.image
-      ? Buffer.from(user.picture.image).toString("base64")
+    const imageBase64 = user.picture
+      ? Buffer.from(user.picture).toString("base64")
       : null;
 
     response.cookie("token", token, {

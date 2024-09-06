@@ -9,26 +9,16 @@ datasource db {
 
 // User
 model User {
-  id        String     @id @default(uuid())
+  id        Int        @id @default(autoincrement())
   username  String     @unique @db.VarChar(32)
   email     String     @unique @db.VarChar(64)
   password  String     @db.VarChar(255)
   name      String     @db.VarChar(64)
-  age       String     @db.VarChar(4)
+  age       Int        @db.UnsignedTinyInt()
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  isAdmin   Boolean?   @default(false)
+  picture   Bytes?     @db.MediumBlob
   bookmarks Bookmark[]
-  picture   UserImage?
-}
-
-//image
-model UserImage {
-  id         String   @id @default(uuid())
-  userId     String   @unique
-  image      Bytes?   @db.LongBlob
-  uploadedAt DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
 }
 
 model Bookmark {
@@ -40,31 +30,13 @@ model Bookmark {
   mediaType    MediaType
   startDate    String
   user         User      @relation(fields: [userId], references: [id])
-  userId       String
+  userId       Int
 
   @@id([userId, id])
+  @@index([userId])
 }
 
 enum MediaType {
   MOVIE
   TV
 }
-
-// interface IMedia {
-//   id: number;
-//   adult: boolean;
-//   backdrop_path: string;
-//   poster_path: string;
-// }
-
-// interface IMovie extends IMedia {
-//   title: string;
-//   media_type: "movie";
-//   release_date: string;
-// }
-
-// interface ITVShow extends IMedia {
-//   media_type: "tv";
-//   name: string;
-//   first_air_date: string;
-// }
