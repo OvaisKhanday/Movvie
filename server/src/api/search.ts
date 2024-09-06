@@ -14,32 +14,28 @@ async function getSearched(
       page: searchResult.page,
       total_pages: searchResult.total_pages,
       total_results: searchResult.total_results,
-      results: searchResult.results
-        .filter((result: { title: string }) =>
-          result.title?.toLowerCase().includes(query.toLowerCase())
-        )
-        .map(
-          (result: {
-            id: any;
-            media_type: string;
-            poster_path: any;
-            title: any;
-            name: any;
-            overview: any;
-            backdrop_path: any;
-          }) => {
-            return {
-              id: result.id!,
-              media_type: result.media_type === "movie" ? "movie" : "tv",
-              poster_path: result.poster_path!,
-              title: (result.media_type === "movie"
-                ? result.title
-                : result.name)!,
-              overview: result.overview!,
-              backdrop_path: result.backdrop_path!,
-            };
-          }
-        ),
+      results: searchResult.results.map(
+        (result: {
+          id: any;
+          media_type: string;
+          poster_path: any;
+          title: any;
+          name: any;
+          overview: any;
+          backdrop_path: any;
+        }) => {
+          return {
+            id: result.id!,
+            media_type: result.media_type === "movie" ? "movie" : "tv",
+            poster_path: result.poster_path!,
+            title: (result.media_type === "movie"
+              ? result.title
+              : result.name)!,
+            overview: result.overview!,
+            backdrop_path: result.backdrop_path!,
+          };
+        }
+      ),
     };
 
     return Promise.resolve<ISearchMedia | null>(searched);
