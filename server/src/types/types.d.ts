@@ -188,3 +188,14 @@ interface ISearchItems {
   poster_path: string;
   backdrop_path: string;
 }
+
+interface IBookmark {
+  id: number;
+  title: string;
+  adult: boolean;
+  backdropPath: string;
+  posterPath: string;
+  mediaType: "MOVIE" | "TV";
+  startDate: Date;
+  createdAt?: Date;
+}
