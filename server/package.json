@@ -26,6 +26,7 @@
   "homepage": "https://github.com/OvaisKhanday/Movvie#readme",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.7",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
@@ -44,9 +45,11 @@
     "@prisma/client": "^5.19.1",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
+    "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1"
   }

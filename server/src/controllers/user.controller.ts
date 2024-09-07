@@ -149,9 +149,6 @@ async function loginUser(
     const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });
-    const imageBase64 = user.picture
-      ? Buffer.from(user.picture).toString("base64")
-      : null;
 
     response.cookie("token", token, {
       httpOnly: true,
@@ -162,12 +159,14 @@ async function loginUser(
     return response.status(200).json({
       success: true,
       message: "Login Successful",
-      data: {
+      user: {
         id: user.id,
+        name: user.name,
+        age: user.age,
+        picture: user.picture ? bufferToDataImage(user.picture) : null,
+        createdAt: user.createdAt,
         username: user.username,
         email: user.email,
-        name: user.name,
-        userImage: imageBase64 ? `data:image/jpeg;base64,${imageBase64}` : null,
       },
     });
   } catch (error) {
@@ -195,4 +194,36 @@ async function logoutUser(
   }
 }
 
-export const userController = { registerUser, loginUser, logoutUser };
+async function getUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { id }: { id: number } = req.body.tokenData;
+    const user = await prisma.user.findFirst({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        age: true,
+        picture: true,
+        createdAt: true,
+        email: true,
+        username: true,
+      },
+    });
+    if (!user) return res.status(404).json({ message: "user not found" });
+    return res.status(200).json({
+      user: {
+        ...user,
+        picture: user.picture ? bufferToDataImage(user.picture) : null,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+function bufferToDataImage(buffer: Buffer) {
+  const imageBase64 = Buffer.from(buffer).toString("base64");
+  return `data:image/jpeg;base64,${imageBase64}`;
+}
+
+export const userController = { registerUser, loginUser, logoutUser, getUser };

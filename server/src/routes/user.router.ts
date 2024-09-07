@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { userMiddleware, multerUpload } from "../middlewares/index.js";
+import {
+  userMiddleware,
+  multerUpload,
+  authMiddleware,
+} from "../middlewares/index.js";
 import { userController } from "../controllers/index.js";
 
 const router = Router();
@@ -17,5 +21,6 @@ router.post(
   userController.loginUser
 );
 router.get("/logout", userController.logoutUser);
+router.get("/user", authMiddleware.authenticateUser, userController.getUser);
 
 export { router as userRouter };

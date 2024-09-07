@@ -1,3 +1,4 @@
+export { bookmarksController } from "./bookmarks.controller.js";
 export { userController } from "./user.controller.js";
 export { imageController } from "./image.controller.js";
 export { mediaDetailsController } from "./mediaDetails.controller.js";
