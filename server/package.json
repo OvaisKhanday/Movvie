@@ -4,7 +4,7 @@
   "description": "Server for the Moovie app",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --maxWorkers=1",
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts"
