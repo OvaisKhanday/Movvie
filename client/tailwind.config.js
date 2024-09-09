@@ -12,7 +12,7 @@ module.exports = {
         onTertiary: "#FFFFFF",
         surface: "#10141E",
         onSurface: "#FFFFFF",
-        muted: "#A1A1AA",
+        muted: "#d1d1d1",
       },
       fontFamily: {
         sans: ["Outfit", "sans-serif"],
