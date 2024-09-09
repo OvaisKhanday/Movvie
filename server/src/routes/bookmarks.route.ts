@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authMiddleware, validators } from "../middlewares/index.js";
-import { bookmarksController } from "../controllers/index.js";
+import { authMiddleware, validators } from "../middlewares/index";
+import { bookmarksController } from "../controllers/index";
 import { body, query } from "express-validator";
 
 const router = Router();

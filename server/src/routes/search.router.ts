@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { searchController } from "../controllers/index.js";
+import { searchController } from "../controllers/index";
 import { query } from "express-validator";
-import { validators } from "../middlewares/index.js";
+import { validators } from "../middlewares/index";
 const router = Router();
 
 router.get(

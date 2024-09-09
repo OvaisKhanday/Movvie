@@ -1,8 +1,8 @@
-export { bookmarksController } from "./bookmarks.controller.js";
-export { userController } from "./user.controller.js";
-export { imageController } from "./image.controller.js";
-export { mediaDetailsController } from "./mediaDetails.controller.js";
-export { popularMediaController } from "./popularMedia.controller.js";
-export { searchController } from "./search.controller.js";
-export { trendingController } from "./trending.controller.js";
-export { appController } from "./app.controller.js";
+export { bookmarksController } from "./bookmarks.controller";
+export { userController } from "./user.controller";
+export { imageController } from "./image.controller";
+export { mediaDetailsController } from "./mediaDetails.controller";
+export { popularMediaController } from "./popularMedia.controller";
+export { searchController } from "./search.controller";
+export { trendingController } from "./trending.controller";
+export { appController } from "./app.controller";

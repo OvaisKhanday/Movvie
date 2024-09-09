@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { fetchMovieDetails, fetchTVShowDetails } from "../api/index.js";
+import { fetchMovieDetails, fetchTVShowDetails } from "../api/index";
 
 async function getMovieDetails(req: Request, res: Response, next: NextFunction) {
   try {

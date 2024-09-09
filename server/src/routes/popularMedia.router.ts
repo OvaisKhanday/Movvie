@@ -1,5 +1,5 @@
 import express from "express";
-import { popularMediaController } from "../controllers/index.js";
+import { popularMediaController } from "../controllers/index";
 
 const router = express.Router();
 

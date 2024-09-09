@@ -1,4 +1,4 @@
-export { validators } from "./validators.middleware.js";
-export { authMiddleware } from "./auth.middleware.js";
-export { userMiddleware } from "./user.middleware.js";
-export { multerUpload } from "./multer.middleware.js";
+export { validators } from "./validators.middleware";
+export { authMiddleware } from "./auth.middleware";
+export { userMiddleware } from "./user.middleware";
+export { multerUpload } from "./multer.middleware";

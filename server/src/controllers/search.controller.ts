@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getSearched } from "../api/index.js";
+import { getSearched } from "../api/index";
 
 async function getSearchedAll(req: Request, res: Response, next: NextFunction) {
   try {

@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { appRouter } from "./app.router.js";
-import { trendingRouter } from "./trending.router.js";
-import { popularMediaRouter } from "./popularMedia.router.js";
-import { mediaDetailsRouter } from "./mediaDetails.router.js";
-import { imagesRouter } from "./images.router.js";
-import { searchRouter } from "./search.router.js";
-import { userRouter } from "./user.router.js";
-import { bookmarksRouter } from "./bookmarks.route.js";
+import { appRouter } from "./app.router";
+import { trendingRouter } from "./trending.router";
+import { popularMediaRouter } from "./popularMedia.router";
+import { mediaDetailsRouter } from "./mediaDetails.router";
+import { imagesRouter } from "./images.router";
+import { searchRouter } from "./search.router";
+import { userRouter } from "./user.router";
+import { bookmarksRouter } from "./bookmarks.route";
 
 export const routes: { route: string; router: Router }[] = [
   { route: "/", router: appRouter },

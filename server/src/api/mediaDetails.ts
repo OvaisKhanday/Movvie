@@ -23,9 +23,7 @@ async function fetchMovieDetails(id: string): Promise<IMovieDetails | null> {
       release_date: movieDetails.release_date,
       revenue: movieDetails.revenue,
       runtime: movieDetails.runtime,
-      spoken_languages: movieDetails.spoken_languages.map(
-        (lang: { english_name: any }) => lang.english_name
-      ),
+      spoken_languages: movieDetails.spoken_languages.map((lang: { english_name: any }) => lang.english_name),
       status: movieDetails.status,
       tagline: movieDetails.tagline,
       title: movieDetails.title,
@@ -39,7 +37,7 @@ async function fetchMovieDetails(id: string): Promise<IMovieDetails | null> {
 
     return await Promise.resolve<IMovieDetails | null>(movie);
   } catch (error: any) {
-    throw new Error("Error getting Movie details ", error);
+    throw new Error(error);
   }
 }
 
@@ -50,11 +48,9 @@ async function fetchMovieCasts(id: string): Promise<string[]> {
     );
     const movieCredits = response.data;
 
-    return movieCredits.cast
-      .slice(0, 25)
-      .map((cast: { name: any }) => cast.name);
+    return movieCredits.cast.slice(0, 25).map((cast: { name: any }) => cast.name);
   } catch (error: any) {
-    throw new Error("Error getting movie casts", error);
+    throw new Error(error);
   }
 }
 
@@ -83,9 +79,7 @@ async function fetchTVShowDetails(id: string): Promise<ITVShowDetails | null> {
       overview: tvShowDetails.overview,
       popularity: tvShowDetails.popularity,
       poster_path: tvShowDetails.poster_path,
-      spoken_languages: tvShowDetails.spoken_languages.map(
-        (lang: { english_name: any }) => lang.english_name
-      ),
+      spoken_languages: tvShowDetails.spoken_languages.map((lang: { english_name: any }) => lang.english_name),
       status: tvShowDetails.status,
       tagline: tvShowDetails.tagline,
       type: tvShowDetails.type,
@@ -96,7 +90,7 @@ async function fetchTVShowDetails(id: string): Promise<ITVShowDetails | null> {
     };
     return tvShow;
   } catch (error: any) {
-    throw new Error("Error getting getting TV show details ", error);
+    throw new Error(error);
   }
 }
 
@@ -107,11 +101,9 @@ async function fetchTVShowCasts(id: string): Promise<string[]> {
     );
     const tvShowCredits = response.data;
 
-    return tvShowCredits.cast
-      .slice(0, 25)
-      .map((cast: { name: any }) => cast.name);
+    return tvShowCredits.cast.slice(0, 25).map((cast: { name: any }) => cast.name);
   } catch (error: any) {
-    throw new Error("Error getting TV shows cast ", error);
+    throw new Error(error);
   }
 }
 export { fetchMovieDetails, fetchTVShowDetails };

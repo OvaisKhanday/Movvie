@@ -1,10 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-function validateSignupDetails(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+function validateSignupDetails(req: Request, res: Response, next: NextFunction) {
   const {
     username,
     email,
@@ -32,11 +28,7 @@ function validateSignupDetails(
 }
 
 function validateLoginDetails(req: Request, res: Response, next: NextFunction) {
-  const {
-    username,
-    email,
-    password,
-  }: { username?: string; email?: string; password?: string } = req.body;
+  const { username, email, password }: { username?: string; email?: string; password?: string } = req.body;
 
   // check if username or email provided
   if (!(username || email)) {

@@ -9,7 +9,7 @@ const getTrending = async (page: number): Promise<ITrendingResponse | null> => {
 
     return await Promise.resolve<ITrendingResponse | null>(trending);
   } catch (error: any) {
-    throw new Error("Error getting trending media", error);
+    throw new Error(error);
   }
 };
 

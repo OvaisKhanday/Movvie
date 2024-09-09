@@ -3,10 +3,7 @@ import jwt from "jsonwebtoken";
 
 function authenticateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    req.body.tokenData = jwt.verify(
-      req.cookies?.token,
-      process.env.TOKEN_SECRET!
-    );
+    req.body.tokenData = jwt.verify(req.cookies?.token, process.env.TOKEN_SECRET!);
 
     next();
   } catch (error) {

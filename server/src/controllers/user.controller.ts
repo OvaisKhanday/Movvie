@@ -1,13 +1,9 @@
-import prisma from "../db/dbConnect.js";
+import prisma from "../db/dbConnect";
 import { NextFunction, Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-async function registerUser(
-  request: Request,
-  response: Response,
-  next: NextFunction
-) {
+async function registerUser(request: Request, response: Response, next: NextFunction) {
   try {
     // taking every data from body
     const {
@@ -73,9 +69,7 @@ async function registerUser(
       expiresIn: "1d",
     });
 
-    const imageBase64 = user.picture
-      ? Buffer.from(user.picture).toString("base64")
-      : null;
+    const imageBase64 = user.picture ? Buffer.from(user.picture).toString("base64") : null;
 
     response.cookie("token", token, {
       httpOnly: true,
@@ -102,18 +96,10 @@ async function registerUser(
   }
 }
 
-async function loginUser(
-  request: Request,
-  response: Response,
-  next: NextFunction
-) {
+async function loginUser(request: Request, response: Response, next: NextFunction) {
   try {
     // taking the username or email and password from body
-    const {
-      username,
-      email,
-      password,
-    }: { username: string; email: string; password: string } = request.body;
+    const { username, email, password }: { username: string; email: string; password: string } = request.body;
 
     // check the user exists or not
     const user = await prisma.user.findFirst({
@@ -174,11 +160,7 @@ async function loginUser(
   }
 }
 
-async function logoutUser(
-  request: Request,
-  response: Response,
-  next: NextFunction
-) {
+async function logoutUser(request: Request, response: Response, next: NextFunction) {
   try {
     response.clearCookie("token", {
       httpOnly: true,

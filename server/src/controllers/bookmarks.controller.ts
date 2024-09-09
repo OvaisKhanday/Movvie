@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { fetchMovieDetails, fetchTVShowDetails } from "../api/mediaDetails.js";
-import prisma from "../db/dbConnect.js";
+import { fetchMovieDetails, fetchTVShowDetails } from "../api/index";
+import prisma from "../db/dbConnect";
 const LIMIT = 20;
 async function getAll(req: Request, res: Response, next: NextFunction) {
   try {
@@ -118,7 +118,7 @@ async function getBookmark(req: Request, res: Response, next: NextFunction) {
     const { id: userId }: { id: number } = req.body.tokenData;
 
     const bookmark = await prisma.bookmark.findFirst({ where: { AND: [{ userId }, { id: bookmarkId }] } });
-    if (!bookmark) return res.status(404).end();
+    if (!bookmark) return res.status(404).send("Media not found");
 
     const bookmarkDetails =
       bookmark.mediaType === "MOVIE"

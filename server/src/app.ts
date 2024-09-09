@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { routes } from "./routes/index.js";
+import { routes } from "./routes/index";
 import dotenv from "dotenv";
 import cookieParse from "cookie-parser";
 
@@ -19,6 +19,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 const PORT = process.env.PORT;
 
-app.listen(PORT || 8080, () => {
+const server = app.listen(PORT || 8080, () => {
   console.log(`app is listening: http://localhost:${PORT}`);
 });
+
+export { app, server };

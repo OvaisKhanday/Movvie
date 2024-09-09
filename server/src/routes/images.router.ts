@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { imageController } from "../controllers/index.js";
+import { imageController } from "../controllers/index";
 import { param } from "express-validator";
-import { validators } from "../middlewares/index.js";
+import { validators } from "../middlewares/index";
 
 const router = Router();
 

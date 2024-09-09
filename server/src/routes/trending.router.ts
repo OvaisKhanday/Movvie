@@ -1,5 +1,5 @@
 import express from "express";
-import { trendingController } from "../controllers/index.js";
+import { trendingController } from "../controllers/index";
 
 const router = express.Router();
 

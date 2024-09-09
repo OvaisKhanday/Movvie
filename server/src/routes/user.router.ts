@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { userMiddleware, multerUpload, authMiddleware, validators } from "../middlewares/index.js";
-import { userController } from "../controllers/index.js";
+import { userMiddleware, multerUpload, authMiddleware, validators } from "../middlewares/index";
+import { userController } from "../controllers/index";
 import { body } from "express-validator";
 
 const router = Router();
