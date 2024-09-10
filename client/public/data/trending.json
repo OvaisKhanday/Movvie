@@ -1,0 +1,182 @@
+[
+  {
+    "backdrop_path": "/tbgIhYwQ5IAgNaFU1SBBxxNXCmm.jpg",
+    "id": 646097,
+    "title": "Rebel Ridge",
+    "poster_path": "/h0cL64iYeKYAYUBFupLgtxDXaVt.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-08-27"
+  },
+  {
+    "backdrop_path": "/18wozP6NjPSNBSgCga5bN7yUSzl.jpg",
+    "id": 917496,
+    "title": "Beetlejuice Beetlejuice",
+    "poster_path": "/kKgQzkUCnQmeTPkyIwHly2t6ZFI.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-09-04"
+  },
+  {
+    "backdrop_path": "/3buRSGVnutw8x4Lww0t70k5dG6R.jpg",
+    "id": 220564,
+    "title": "The Perfect Couple",
+    "poster_path": "/weyR73iYr1lWg17Q2r4sc7aEr2p.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "2024-09-05"
+  },
+  {
+    "backdrop_path": "/p5kpFS0P3lIwzwzHBOULQovNWyj.jpg",
+    "id": 1032823,
+    "title": "Trap",
+    "poster_path": "/jwoaKYVqPgYemFpaANL941EF94R.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-07-31"
+  },
+  {
+    "backdrop_path": "/NNC08YmJFFlLi1prBkK8quk3dp.jpg",
+    "id": 84773,
+    "title": "The Lord of the Rings: The Rings of Power",
+    "poster_path": "/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "2022-09-01"
+  },
+  {
+    "backdrop_path": "/su7GvFVUV5uWtAPGAVRkpDrA6Wl.jpg",
+    "id": 4011,
+    "title": "Beetlejuice",
+    "poster_path": "/nnl6OWkyPpuMm595hmAxNW3rZFn.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "1988-03-30"
+  },
+  {
+    "backdrop_path": "/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg",
+    "id": 1022789,
+    "title": "Inside Out 2",
+    "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-06-11"
+  },
+  {
+    "backdrop_path": "/tCQfubckzzcuCbsGugkpLhfjS5z.jpg",
+    "id": 970347,
+    "title": "The Killer",
+    "poster_path": "/6PCnxKZZIVRanWb710pNpYVkCSw.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-08-22"
+  },
+  {
+    "backdrop_path": "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
+    "id": 533535,
+    "title": "Deadpool \u0026 Wolverine",
+    "poster_path": "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-07-24"
+  },
+  {
+    "backdrop_path": "/2rmK7mnchw9Xr3XdiTFSxTTLXqv.jpg",
+    "id": 37854,
+    "title": "One Piece",
+    "poster_path": "/cMD9Ygz11zjJzAovURpO75Qg7rT.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "1999-10-20"
+  },
+  {
+    "backdrop_path": "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
+    "id": 945961,
+    "title": "Alien: Romulus",
+    "poster_path": "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-08-13"
+  },
+  {
+    "backdrop_path": "/mKOBdgaEFguADkJhfFslY7TYxIh.jpg",
+    "id": 365177,
+    "title": "Borderlands",
+    "poster_path": "/865DntZzOdX6rLMd405R0nFkLmL.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-08-07"
+  },
+  {
+    "backdrop_path": "/5b92quxO3eOX1cCLYeo6XKJkCw5.jpg",
+    "id": 1226578,
+    "title": "Longlegs",
+    "poster_path": "/5aj8vVGFwGVbQQs26ywhg4Zxk2L.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-07-10"
+  },
+  {
+    "backdrop_path": "/qhXdYysiamRu6moMGMZPQ4oVLvd.jpg",
+    "id": 95480,
+    "title": "Slow Horses",
+    "poster_path": "/dnpatlJrEPiDSn5fzgzvxtiSnMo.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "2022-04-01"
+  },
+  {
+    "backdrop_path": "/7aPrv2HFssWcOtpig5G3HEVk3uS.jpg",
+    "id": 718821,
+    "title": "Twisters",
+    "poster_path": "/pjnD08FlMAIXsfOLKQbvmO0f0MD.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-07-10"
+  },
+  {
+    "backdrop_path": "/89i65Rst6hO0kbx1GFjqp4F6hH8.jpg",
+    "id": 1089223,
+    "title": "Revolver",
+    "poster_path": "/c97RD2bsqLQMrRPPiHMD1ZgloOo.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-08-07"
+  },
+  {
+    "backdrop_path": "/uGmYqxh8flqkudioyFtD7IJSHxK.jpg",
+    "id": 889737,
+    "title": "Joker: Folie à Deux",
+    "poster_path": "/byDXrm0pY6vSKIKyuKWK5vWz62G.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-09-30"
+  },
+  {
+    "backdrop_path": "/9Piw6Zju39bn3enIDLZzPfjMTBR.jpg",
+    "id": 102621,
+    "title": "KAOS",
+    "poster_path": "/dDBTUSl3tRsOeKC1jZugBSFHy9I.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "2024-08-29"
+  },
+  {
+    "backdrop_path": "/woH18JkZMYhMSWqtHkPA4F6Gd1z.jpg",
+    "id": 239287,
+    "title": "Terminator Zero",
+    "poster_path": "/v4sbn6IsJGAIZNHjdB4CprvS7zo.jpg",
+    "media_type": "tv",
+    "adult": false,
+    "start_date": "2024-08-29"
+  },
+  {
+    "backdrop_path": "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
+    "id": 519182,
+    "title": "Despicable Me 4",
+    "poster_path": "/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
+    "media_type": "movie",
+    "adult": false,
+    "start_date": "2024-06-20"
+  }
+]
