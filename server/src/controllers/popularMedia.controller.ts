@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getPopularMedia, getPopularMovies, getPopularTVShows } from "../api/index.js";
+import { getPopularMedia, getPopularMovies, getPopularTVShows } from "../api/index";
 
 async function getAll(req: Request, res: Response, next: NextFunction) {
   try {

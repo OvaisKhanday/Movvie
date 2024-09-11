@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getTrending } from "../api/index.js";
+import { getTrending } from "../api/index";
 
 async function getAll(req: Request, res: Response, next: NextFunction) {
   try {
@@ -11,7 +11,7 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
       if (result.media_type === "movie") {
         const newMovie: IMovie = {
           media_type: result.media_type,
-          release_date: result.release_date,
+          start_date: result.release_date,
           id: result.id,
           backdrop_path: result.backdrop_path,
           adult: result.adult,
@@ -24,10 +24,10 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
           id: result.id,
           adult: result.adult,
           backdrop_path: result.backdrop_path,
-          first_air_date: result.first_air_date,
+          start_date: result.first_air_date,
           media_type: result.media_type,
           poster_path: result.poster_path,
-          name: result.name,
+          title: result.name,
         };
         return newTVShow;
       }

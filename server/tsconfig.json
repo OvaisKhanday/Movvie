@@ -1,6 +1,10 @@
 {
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "./coverage",
+    "node_modules",
     "./dist",
     "__tests__",
     "jest.config.js"
@@ -10,7 +14,8 @@
     "files": true
   },
   "compilerOptions": {
-    "module": "NodeNext", /* Specify what module code is generated. */
+    "target": "ES6",
+    "module": "CommonJS", /* Specify what module code is generated. */
     "rootDir": "./src", /* Specify the root folder within your source files. */
     "outDir": "./dist", /* Specify an output folder for all emitted files. */
     "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */

@@ -103,18 +103,17 @@ interface IMedia {
   adult: boolean;
   backdrop_path: string;
   poster_path: string;
+  title: string;
+  media_type: TMedia;
+  start_date: string;
 }
 
 interface IMovie extends IMedia {
-  title: string;
   media_type: "movie";
-  release_date: string;
 }
 
 interface ITVShow extends IMedia {
   media_type: "tv";
-  name: string;
-  first_air_date: string;
 }
 
 interface IPopularMoviesResponse {
@@ -187,4 +186,15 @@ interface ISearchItems {
   overview: string;
   poster_path: string;
   backdrop_path: string;
+}
+
+interface IBookmark {
+  id: number;
+  title: string;
+  adult: boolean;
+  backdropPath: string;
+  posterPath: string;
+  mediaType: "MOVIE" | "TV";
+  startDate: Date;
+  createdAt?: Date;
 }
