@@ -1,3 +1,4 @@
 import Signup from "./Auth/Signup";
+import Login from "./Auth/Login";
 
-export { Signup };
+export { Signup, Login };
