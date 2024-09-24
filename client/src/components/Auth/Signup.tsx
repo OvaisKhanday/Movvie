@@ -39,7 +39,6 @@ const Signup = () => {
   });
 
   const onSubmit = async (data: SignupSchema) => {
-    console.log(data);
     setIsSubmitting(true);
     setError("");
     try {

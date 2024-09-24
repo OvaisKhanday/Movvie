@@ -26,7 +26,7 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
 
 async function addBookmark(req: Request, res: Response, next: NextFunction) {
   try {
-    const { id: bookmarkId, type: mediaType }: { id: number; type: "MOVIE" | "TV" } = req.body;
+    const { id: bookmarkId, type: mediaType }: { id: number; type: "movie" | "tv" } = req.body;
     const { id: userId } = req.body.tokenData;
 
     const presentBookmark = await prisma.bookmark.findFirst({ where: { AND: [{ id: bookmarkId }, { userId }] } });

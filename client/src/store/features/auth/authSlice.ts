@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 // type for user
 
-interface UserState {
+export interface UserState {
   status: boolean; // status show is user logged in or not
   userData: User | null;
 }
