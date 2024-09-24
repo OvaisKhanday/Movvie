@@ -103,9 +103,9 @@ interface IMedia {
   adult: boolean;
   backdrop_path: string;
   poster_path: string;
-  title: string;
+  title?: string;
   media_type: TMedia;
-  start_date: string;
+  start_date?: string;
 }
 
 interface IMovie extends IMedia {

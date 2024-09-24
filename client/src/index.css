@@ -2,9 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #10141e;
-  overflow-x: hidden;
+@layer base {
+  body {
+    background-color: #10141e;
+    overflow-x: hidden;
+  }
+}
+
+.slider-container {
+  width: 100%;
+  height: auto;
+  min-height: 12rem;
+  overflow: visible;
+  position: relative;
+}
+
+.slick-list {
+  overflow: visible !important;
+  height: auto;
+}
+
+.slick-track {
+  display: flex !important;
+  align-items: center;
+}
+
+.slick-slide {
+  display: block !important;
+  margin: 0 10px;
+  min-height: 12rem;
+  min-width: 28rem;
+  max-width: 100%;
+  width: auto !important;
+  /* display: block !important;
+  min-width: 28rem;
+  max-width: 100%;
+  margin: 0 10px; */
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.slick-prev {
+  left: -50px;
+}
+
+.slick-next {
+  right: -50px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: white;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #bada55;
 }
 
 horizontal-scroll {

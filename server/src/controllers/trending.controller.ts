@@ -6,7 +6,9 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
     const parsedNum = Number.parseInt(req.query.page?.toString() ?? "1");
     const page = isNaN(parsedNum) ? 1 : parsedNum;
     const trending: ITrendingResponse | null = await getTrending(page);
+
     if (trending == null) return res.status(404).send("media not found");
+
     const response: (IMovie | ITVShow)[] = trending.results.map((result) => {
       if (result.media_type === "movie") {
         const newMovie: IMovie = {
@@ -18,6 +20,7 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
           poster_path: result.poster_path,
           title: result.title,
         };
+
         return newMovie;
       } else {
         const newTVShow: ITVShow = {
@@ -29,6 +32,7 @@ async function getAll(req: Request, res: Response, next: NextFunction) {
           poster_path: result.poster_path,
           title: result.name,
         };
+
         return newTVShow;
       }
     });

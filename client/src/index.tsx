@@ -1,18 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { SignupPage, LoginPage } from "./pages";
+import { SignupPage, LoginPage, Homepage } from "./pages";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [],
+    children: [
+      {
+        path: "/",
+        element: <Homepage />,
+      },
+      {
+        path: "/movies",
+        element: <h2>Movies</h2>,
+      },
+      {
+        path: "/tv-shows",
+        element: <h2>TV shows</h2>,
+      },
+      {
+        path: "/bookmarks",
+        element: <h2>Bookmarks</h2>,
+      },
+    ],
   },
   {
     path: "/signup",
