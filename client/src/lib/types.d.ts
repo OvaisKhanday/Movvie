@@ -5,8 +5,10 @@ interface IMedia {
   backdrop_path: string;
   poster_path: string;
   title: string;
-  media_type: TMedia;
-  start_date: string;
+  media_type?: TMedia;
+  mediaType?: "MOVIE" | "TV";
+  start_date?: string;
+  startDate?: Date;
 }
 
 interface IMovie extends IMedia {

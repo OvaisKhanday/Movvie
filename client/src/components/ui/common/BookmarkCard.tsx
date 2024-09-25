@@ -9,21 +9,21 @@ interface MediaCardProps extends IMedia {
   checkBookmark: (id: number) => boolean;
 }
 
-const MediaCard: FC<MediaCardProps> = ({
+const BookmarkCard: FC<MediaCardProps> = ({
   id,
-  media_type,
+  mediaType,
   adult,
   backdrop_path,
   poster_path,
   title,
-  start_date,
+  startDate,
   authState,
   checkBookmark,
 }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(checkBookmark(id));
 
-  const handleToggle = async (id: number, media_type: "movie" | "tv") => {
+  const handleToggle = async (id: number, media_type: "MOVIE" | "TV") => {
     if (!authState.status) {
       navigate("/login");
       return;
@@ -73,7 +73,7 @@ const MediaCard: FC<MediaCardProps> = ({
         }}
       >
         <span className="self-end flex justify-center items-center z-10 group/bookmark rounded-full p-1.5 w-7 h-7 bg-black/40 transition duration-150 ease-linear hover:bg-onSecondary/80">
-          <button onClick={() => handleToggle(id, media_type!)}>
+          <button onClick={() => handleToggle(id, mediaType!)}>
             {isBookmarked ? (
               <StarFilledLogo />
             ) : (
@@ -84,13 +84,13 @@ const MediaCard: FC<MediaCardProps> = ({
       </div>
       <div className="self-start w-full flex flex-col font-sans font-light text-onSecondary gap-2">
         <span className="w-full flex items-center gap-3 text-sm text-onSecondary/80 z-10">
-          <span>{start_date?.substring(0, 4)}</span>
+          <span>{startDate?.getFullYear()}</span>
           <span className="w-1 h-1 bg-muted rounded-full"></span>
           <span className="flex items-center ">
-            {media_type === "movie" ? (
+            {mediaType === "MOVIE" ? (
               <>
                 <MovieLogo className="text-onSecondary" />
-                &nbsp; <span className="capitalize">{media_type}</span>{" "}
+                &nbsp; <span className="capitalize">{mediaType}</span>{" "}
               </>
             ) : (
               <>
@@ -110,4 +110,4 @@ const MediaCard: FC<MediaCardProps> = ({
   );
 };
 
-export default MediaCard;
+export default BookmarkCard;

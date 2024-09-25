@@ -72,7 +72,7 @@ const TrendingCard: FC<TrendingCardProps> = ({
       }}
     >
       <span className="self-end flex justify-center items-center z-10 group/bookmark rounded-full p-1.5 w-7 h-7 bg-black/40 transition duration-150 ease-linear hover:bg-onSecondary/80">
-        <button onClick={() => handleToggle(id, media_type)}>
+        <button onClick={() => handleToggle(id, media_type!)}>
           {isBookmarked ? (
             <StarFilledLogo />
           ) : (
@@ -82,17 +82,17 @@ const TrendingCard: FC<TrendingCardProps> = ({
       </span>
       <div className="self-start w-full flex flex-col font-sans font-light text-onSecondary">
         <span className="w-full flex items-center gap-3 text-sm text-onSecondary/80 z-10">
-          <span>{start_date.substring(0, 4)}</span>
+          <span>{start_date?.substring(0, 4)}</span>
           <span className="w-1 h-1 bg-muted rounded-full"></span>
           <span className="flex items-center ">
             {media_type === "movie" ? (
               <>
-                <MovieLogo />
+                <MovieLogo className="text-onSecondary" />
                 &nbsp; <span className="capitalize">{media_type}</span>{" "}
               </>
             ) : (
               <>
-                <TVSeriesLogo />
+                <TVSeriesLogo className="text-onSecondary" />
                 &nbsp; <span className="capitalize">{`TV Series`}</span>{" "}
               </>
             )}
