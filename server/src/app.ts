@@ -2,10 +2,18 @@ import express, { NextFunction, Request, Response } from "express";
 import { routes } from "./routes/index";
 import dotenv from "dotenv";
 import cookieParse from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParse());

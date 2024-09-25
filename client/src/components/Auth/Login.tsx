@@ -92,7 +92,7 @@ const Login = () => {
 
       <span className="self-center font-sans font-light text-sm text-onPrimary/80">
         Don't have an account?{" "}
-        <Link to="/login" className="text-primary hover:underline">
+        <Link to="/signup" className="text-primary hover:underline">
           Sign up
         </Link>
       </span>

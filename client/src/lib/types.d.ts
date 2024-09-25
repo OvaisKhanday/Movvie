@@ -16,3 +16,14 @@ interface IMovie extends IMedia {
 interface ITVShow extends IMedia {
   media_type: "tv";
 }
+
+interface IBookmark {
+  id: number;
+  title: string;
+  adult: boolean;
+  backdropPath: string;
+  posterPath: string;
+  mediaType: "MOVIE" | "TV";
+  startDate: Date;
+  createdAt: Date | undefined;
+}

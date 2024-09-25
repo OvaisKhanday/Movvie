@@ -1,56 +1,104 @@
 import { FC, useEffect, useState } from "react";
 import MediaGrid from "../components/MediaGrid";
-import MediaItem from "../components/MediaItem";
-import TrendingItem from "../components/TrendingItem";
 import { cn } from "../lib/utils";
-import Layout from "./Layout";
+import { Trending } from "../components";
+import { MediaCard } from "../components/ui";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import axios from "axios";
 
 interface HomepageProps {}
 
-const Homepage: FC<HomepageProps> = ({}) => {
-  const [trending, setTrending] = useState<IMedia[]>([]);
+const Homepage: FC<HomepageProps> = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
   const [media, setMedia] = useState<IMedia[]>([]);
+  const [bookmarkedMedia, setBookmarkedMedia] = useState<IBookmark[]>([]);
+
+  const getMedia = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:8080/popular/all");
+
+      console.log("Response media - ", response.data.results);
+
+      if (response.data) {
+        setMedia(response.data.results);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error getting the media: ", error);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("/data/trending.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }).then((resp) =>
-      resp.json().then((data) => {
-        setTrending(data);
-        setMedia(data);
-      })
-    );
+    getMedia();
   }, []);
+
+  useEffect(() => {
+    const getBookmarkedMedia = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`http://localhost:8080/bookmark/all`, {
+          headers: {
+            Authorization: `Bearer ${auth.userData?.id}`,
+          },
+        });
+
+        console.log("Response - ", response.data);
+
+        if (response.data) {
+          setBookmarkedMedia(response.data.results);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error getting the bookmarked media: ", error);
+        setIsLoading(false);
+      }
+    };
+
+    getBookmarkedMedia();
+  }, [auth.userData?.id]);
+
+  const checkBookmarked = (id: number): boolean => {
+    const res = bookmarkedMedia.findIndex((media) => media.id === id);
+
+    return res >= 0;
+  };
 
   return (
     <>
-      <Layout className="text-body-md text-onSurface">
-        <h1 className="mt-4 mb-1 text-heading-md">Trending Media</h1>
-
-        <div
-          className={cn(
-            "flex gap-4 overflow-x-auto w-full whitespace-nowrap horizontal-scroll"
-          )}
-        >
-          {trending.map((trend) => (
-            <TrendingItem
-              key={trend.id}
-              media={trend}
-              className="flex-shrink-0"
-            />
-          ))}
-        </div>
-        <h1 className="mt-4 mb-1 text-heading-md">
-          Popular Movies and TV Shows
-        </h1>
+      <div
+        className={cn(
+          "flex gap-4 overflow-x-auto w-full whitespace-nowrap horizontal-scroll"
+        )}
+      >
+        <Trending />
+      </div>
+      <h2 className="font-sans text-heading-lg mb-1 text-onSurface">
+        Popular Movies and TV Shows
+      </h2>
+      {isLoading ? (
+        <span>...Loading</span>
+      ) : (
         <MediaGrid>
           {media.map((med) => (
-            <MediaItem key={med.id} media={med} />
+            <MediaCard
+              key={med.id}
+              id={med.id}
+              adult={med.adult}
+              authState={auth}
+              title={med.title}
+              start_date={med?.start_date ?? "2020"}
+              media_type={med.media_type}
+              poster_path={med.poster_path}
+              backdrop_path={med.backdrop_path}
+              checkBookmark={checkBookmarked}
+            />
           ))}
         </MediaGrid>
-      </Layout>
+      )}
     </>
   );
 };
