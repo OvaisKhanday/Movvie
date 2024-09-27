@@ -12,6 +12,7 @@ import {
   MoviePage,
   TVShowPage,
   BookmarkPage,
+  MediaDetailsPage,
 } from "./pages";
 import "./index.css";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/bookmarks",
         element: <BookmarkPage />,
+      },
+      {
+        path: "/details/:media_type/:id",
+        element: <MediaDetailsPage />,
       },
     ],
   },

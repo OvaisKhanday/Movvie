@@ -4,26 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { UserState } from "../../../store/features/auth/authSlice";
 import axios from "axios";
 
-interface MediaCardProps extends IMedia {
+interface SearchResultCardProps extends ISearchItems {
   authState: UserState;
   checkBookmark: (id: number) => boolean;
 }
 
-const BookmarkCard: FC<MediaCardProps> = ({
+const SearchResultCard: FC<SearchResultCardProps> = ({
   id,
-  mediaType,
-  adult,
+  media_type,
   backdrop_path,
   poster_path,
   title,
-  startDate,
   authState,
   checkBookmark,
 }) => {
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(checkBookmark(id));
 
-  const handleToggle = async (id: number, media_type: "MOVIE" | "TV") => {
+  const handleToggle = async (id: number, media_type: "movie" | "tv") => {
     if (!authState.status) {
       navigate("/login");
       return;
@@ -64,13 +62,13 @@ const BookmarkCard: FC<MediaCardProps> = ({
   };
 
   const handleClick = () => {
-    navigate(`/details/${mediaType?.toLowerCase()}/${id}`);
+    navigate(`/details/${media_type}/${id}`);
   };
 
   return (
     <div className="flex flex-col items-start gap-3">
       <div
-        className="group relative lg:min-w-[18rem] lg:min-h-[12rem] min-w-[28rem] min-h-[12rem] rounded-md object-cover shadow after:transition-opacity after:duration-300 after:ease-linear after:content-[''] after:absolute after:w-full after:h-full after:bg-black/10 after:inset-0 hover:after:bg-black/40 px-5 py-4 flex flex-col justify-between cursor-pointer"
+        className="group relative lg:min-w-[18rem] lg:min-h-[12rem] min-w-[28rem] min-h-[12rem] rounded-md object-cover shadow after:transition-opacity after:duration-300 after:ease-linear after:content-[''] after:absolute after:w-full after:h-full after:bg-black/10 after:inset-0 hover:after:bg-black/40 px-5 py-4 flex flex-col justify-between cursor-pointer "
         style={{
           backgroundImage: `url('https://image.tmdb.org/t/p/w500${backdrop_path}')`,
           backgroundSize: "cover",
@@ -79,7 +77,7 @@ const BookmarkCard: FC<MediaCardProps> = ({
         onClick={handleClick}
       >
         <span className="self-end flex justify-center items-center z-10 group/bookmark rounded-full p-1.5 w-7 h-7 bg-black/40 transition duration-150 ease-linear hover:bg-onSecondary/80">
-          <button onClick={() => handleToggle(id, mediaType!)}>
+          <button onClick={() => handleToggle(id, media_type!)}>
             {isBookmarked ? (
               <StarFilledLogo />
             ) : (
@@ -90,13 +88,11 @@ const BookmarkCard: FC<MediaCardProps> = ({
       </div>
       <div className="self-start w-full flex flex-col font-sans font-light text-onSecondary gap-2">
         <span className="w-full flex items-center gap-3 text-sm text-onSecondary/80 z-10">
-          <span>{startDate?.getFullYear()}</span>
-          <span className="w-1 h-1 bg-muted rounded-full"></span>
           <span className="flex items-center ">
-            {mediaType === "MOVIE" ? (
+            {media_type === "movie" ? (
               <>
                 <MovieLogo className="text-onSecondary" />
-                &nbsp; <span className="capitalize">{mediaType}</span>{" "}
+                &nbsp; <span className="capitalize">{media_type}</span>{" "}
               </>
             ) : (
               <>
@@ -105,8 +101,6 @@ const BookmarkCard: FC<MediaCardProps> = ({
               </>
             )}
           </span>
-          <span className="w-1 h-1 bg-muted rounded-full"></span>
-          <span>{adult ? "18+" : "PG"}</span>
         </span>
         <span className="font-medium text-onPrimary z-10 text-heading-xs">
           {title}
@@ -116,4 +110,4 @@ const BookmarkCard: FC<MediaCardProps> = ({
   );
 };
 
-export default BookmarkCard;
+export default SearchResultCard;
