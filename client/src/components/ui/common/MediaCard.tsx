@@ -62,15 +62,21 @@ const MediaCard: FC<MediaCardProps> = ({
       console.error("Error toggling bookmark button: ", error);
     }
   };
+
+  const handleClick = () => {
+    navigate(`/details/${media_type}/${id}`);
+  };
+
   return (
     <div className="flex flex-col items-start gap-3">
       <div
-        className="group relative lg:min-w-[18rem] lg:min-h-[12rem] min-w-[28rem] min-h-[12rem] rounded-md object-cover shadow after:transition-opacity after:duration-300 after:ease-linear after:content-[''] after:absolute after:w-full after:h-full after:bg-black/10 after:inset-0 hover:after:bg-black/40 px-5 py-4 flex flex-col justify-between "
+        className="group relative lg:min-w-[18rem] lg:min-h-[12rem] min-w-[28rem] min-h-[12rem] rounded-md object-cover shadow after:transition-opacity after:duration-300 after:ease-linear after:content-[''] after:absolute after:w-full after:h-full after:bg-black/10 after:inset-0 hover:after:bg-black/40 px-5 py-4 flex flex-col justify-between cursor-pointer"
         style={{
           backgroundImage: `url('https://image.tmdb.org/t/p/w500${backdrop_path}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
+        onClick={handleClick}
       >
         <span className="self-end flex justify-center items-center z-10 group/bookmark rounded-full p-1.5 w-7 h-7 bg-black/40 transition duration-150 ease-linear hover:bg-onSecondary/80">
           <button onClick={() => handleToggle(id, media_type!)}>
