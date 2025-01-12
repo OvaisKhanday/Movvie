@@ -5,7 +5,7 @@ function App() {
   return (
     <div className={`flex flex-col lg:flex-row gap-2 px-2 py-4`}>
       <NavBar />
-      <div className="w-full flex flex-col items-start">
+      <div className="relative w-full flex flex-col items-start">
         <Search className="w-full" />
         <div className="p-2">
           <Outlet />

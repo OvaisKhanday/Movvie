@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 import {
   AppLogo,
@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import axios from "axios";
 import { logout } from "../store/features/auth/authSlice";
+import { SearchResultCard } from "../components/ui";
+import MediaGrid from "../components/MediaGrid";
 
 interface NavBarProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -146,24 +148,125 @@ const NavBar: FC<NavBarProps> = ({ className, ...props }) => {
 interface SearchProps extends HTMLAttributes<HTMLDivElement> {}
 
 const Search: FC<SearchProps> = ({ className, ...props }) => {
+  const auth = useSelector((state: RootState) => state.auth);
+  const [keyword, setKeyword] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState<ISearchItems[]>([]);
+  const [bookmarkedMedia, setBookmarkedMedia] = useState<IBookmark[]>([]);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setDebouncedValue(keyword);
+    }, 500);
+
+    return () => clearTimeout(id);
+  }, [keyword]);
+
+  const getSearchResult = useCallback(async () => {
+    if (!debouncedValue.trim()) return;
+
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/search/all?query=${debouncedValue}`
+      );
+
+      if (response.data) {
+        setSearchResult(response.data.results);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error getting search results");
+      setIsLoading(false);
+    }
+  }, [debouncedValue]);
+
+  useEffect(() => {
+    if (debouncedValue) {
+      getSearchResult();
+    }
+  }, [debouncedValue, getSearchResult]);
+
+  useEffect(() => {
+    const getBookmarkedMedia = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`http://localhost:8080/bookmark/all`, {
+          headers: {
+            Authorization: `Bearer ${auth.userData?.id}`,
+          },
+        });
+
+        console.log("Response - ", response.data);
+
+        if (response.data) {
+          setBookmarkedMedia(response.data.results);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error getting the bookmarked media: ", error);
+        setIsLoading(false);
+      }
+    };
+
+    getBookmarkedMedia();
+  }, [auth.userData?.id]);
+
+  const checkBookmarked = (id: number): boolean => {
+    const res = bookmarkedMedia.findIndex((media) => media.id === id);
+
+    return res >= 0;
+  };
+
   return (
-    <div
-      className={cn(
-        "h-14 py-3 px-4 rounded-full text-onSecondary w-1/2 flex gap-4 items-center bg-inherit",
-        className
-      )}
-      {...props}
-    >
-      <SearchLogo className="text-heading-lg h-6 w-6" />
-      <input
-        className="w-[90%] h-full bg-inherit outline-none border-b-[0.5px] focus:border-onSecondary border-muted/40 transition duration-300 ease-in caret-primary text-onSecondary px-2 font-sans font-light
+    <>
+      <div
+        className={cn(
+          "h-14 py-3 px-4 rounded-full text-onSecondary w-full flex gap-4 items-center bg-inherit",
+          className
+        )}
+        {...props}
+      >
+        <SearchLogo className="text-heading-lg h-6 w-6" />
+        <input
+          className="w-[90%] h-full bg-inherit outline-none border-b-[0.5px] focus:border-onSecondary border-muted/40 transition duration-300 ease-in caret-primary text-onSecondary px-2 font-sans font-light
         placeholder:font-sans placeholder:font-light placeholder:text-muted/60 focus:border-muted/100"
-        type="text"
-        name="search"
-        id="search-box"
-        placeholder="Search for movie or TV show"
-      />
-    </div>
+          type="text"
+          name="search"
+          id="search-box"
+          placeholder="Search for movie or TV show"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+      </div>
+      {debouncedValue && (
+        <div className="absolute bg-[#10141e] top-16 w-full flex flex-col items-start px-4 py-2 z-50">
+          <h2 className="font-sans text-heading-lg mb-3 text-onSurface">
+            Found {searchResult.length} results for {`'${debouncedValue}'`}
+          </h2>
+          {isLoading ? (
+            <span>...Loading</span>
+          ) : (
+            <MediaGrid>
+              {searchResult.map((result) => (
+                <SearchResultCard
+                  key={result.id}
+                  id={result.id}
+                  title={result.title}
+                  media_type={result.media_type}
+                  backdrop_path={result.backdrop_path}
+                  poster_path={result.poster_path}
+                  overview={result.overview}
+                  authState={auth}
+                  checkBookmark={checkBookmarked}
+                />
+              ))}
+            </MediaGrid>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 
